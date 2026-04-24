@@ -42,13 +42,9 @@ def home():
 
 # ✅ Allowed frontend URLs
 origins = [
-    "http://localhost:3000",     # React / Next.js
-    "http://127.0.0.1:5500",
-    "http://127.0.0.1:5501",
-    "http://localhost:5501",
-    "http://127.0.0.1:5500",
+    "https://www.vaultdb.live",
     "http://localhost:5500",
-    "https://vaultdb.live"# Live Server (VS Code)
+    "http://127.0.0.1:5500"
 ]
 
 # ✅ Add CORS middleware

@@ -1,0 +1,44 @@
+### OTP API quick tests (JetBrains HTTP Client)
+
+@baseUrl = http://127.0.0.1:8000
+@testEmail = your_email@example.com
+@otpCode = 123456
+
+### Health check
+GET {{baseUrl}}/
+Accept: application/json
+
+### Send OTP (direct send, returns SMTP errors if any)
+POST {{baseUrl}}/send-otp/
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}"
+}
+
+### Send OTP (background mode)
+POST {{baseUrl}}/send-otp/?send_in_background=true
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}"
+}
+
+### Verify OTP (replace otpCode with email OTP)
+POST {{baseUrl}}/verify-otp/
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}",
+  "otp": "{{otpCode}}"
+}
+
+### Verify OTP with invalid code (negative test)
+POST {{baseUrl}}/verify-otp/
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}",
+  "otp": "000000"
+}
+

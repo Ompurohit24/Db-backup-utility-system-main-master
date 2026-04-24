@@ -1,0 +1,161 @@
+# Test your FastAPI endpoints
+
+### Health check
+GET http://127.0.0.1:8000/
+Accept: application/json
+
+###
+
+### ── Auth ────────────────────────────────────────────
+
+### Register a new user
+POST http://127.0.0.1:8000/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "name": "Test User"
+}
+
+###
+
+### Verify registration OTP (required before first login)
+POST http://127.0.0.1:8000/auth/verify-registration-otp
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "otp": "123456"
+}
+
+###
+
+### Login
+POST http://127.0.0.1:8000/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+###
+
+### ── Test Database Connection (MySQL) ────────────────
+
+POST http://127.0.0.1:8000/test-connection
+Content-Type: application/json
+Authorization: Bearer <your_jwt_token>
+
+{
+  "database_type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "database_name": "my_app_db",
+  "username": "root",
+  "password": "secret"
+}
+
+###
+
+### ── Test Database Connection (PostgreSQL) ───────────
+
+POST http://127.0.0.1:8000/test-connection
+Content-Type: application/json
+Authorization: Bearer <your_jwt_token>
+
+{
+  "database_type": "postgresql",
+  "host": "localhost",
+  "port": 5432,
+  "database_name": "my_app_db",
+  "username": "postgres",
+  "password": "secret"
+}
+
+###
+
+### ── Test Database Connection (MongoDB) ──────────────
+
+POST http://127.0.0.1:8000/test-connection
+Content-Type: application/json
+Authorization: Bearer <your_jwt_token>
+
+{
+  "database_type": "mongodb",
+  "host": "localhost",
+  "port": 27017,
+  "database_name": "my_app_db",
+  "username": "admin",
+  "password": "secret"
+}
+
+###
+
+### ── List saved databases ────────────────────────────
+
+GET http://127.0.0.1:8000/databases
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### ── Get one saved database ──────────────────────────
+
+GET http://127.0.0.1:8000/databases/<document_id>
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### ── Delete a saved database ─────────────────────────
+
+DELETE http://127.0.0.1:8000/databases/<document_id>
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### ── BACKUPS ──────────────────────────────────────────
+
+### Trigger a backup for a saved database config
+### Replace <document_id> with the ID returned from /test-connection
+POST http://127.0.0.1:8000/databases/<document_id>/backup
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### List all backups for a specific database config
+GET http://127.0.0.1:8000/databases/<document_id>/backups
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### List ALL backups for the current user (across all databases)
+GET http://127.0.0.1:8000/backups
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### Get metadata for a single backup
+GET http://127.0.0.1:8000/backups/<backup_id>
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### Download a backup file
+GET http://127.0.0.1:8000/backups/<backup_id>/download
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### Delete a backup record (keep file on disk)
+DELETE http://127.0.0.1:8000/backups/<backup_id>
+Authorization: Bearer <your_jwt_token>
+
+###
+
+### Delete a backup record AND remove the file from disk
+DELETE http://127.0.0.1:8000/backups/<backup_id>?delete_file=true
+Authorization: Bearer <your_jwt_token>
+
+###
+

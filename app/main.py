@@ -43,15 +43,15 @@ def home():
 # ✅ Allowed frontend URLs
 origins = [
     "https://www.vaultdb.live",
+    "https://vaultdb.live",
     "http://localhost:5500",
     "http://127.0.0.1:5500"
 ]
 
-# ✅ Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],   # allow all HTTP methods
-    allow_headers=["*"],   # allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
